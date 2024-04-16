@@ -1,7 +1,20 @@
 # A little game - hangman by YouTube tutorial
 import random
-from words import words
+import logging
+import json
 import string
+
+def read_json(source: str):   # json file reader made by ArtyoMKo
+    try:
+        with open(source, "r", encoding="utf-8") as read_file:
+            data = json.load(read_file)
+        return data
+    except FileNotFoundError:
+        logging.error(f"{source} file not found")
+        raise FileNotFoundError
+    
+data = read_json('hangman/words.json')
+words = data["hangmanwords"] 
 
 def get_valid_word(words):
     word = random.choice(words)
